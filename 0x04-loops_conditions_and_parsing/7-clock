@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # This script is displaying "Best School" 10 times
 hour=0
-bound=60
 while [[ $hour -le 12 ]] 
 do
   echo "Hour: $hour"
