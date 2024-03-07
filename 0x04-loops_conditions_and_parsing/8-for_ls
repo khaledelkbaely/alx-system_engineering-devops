@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+# shellcheck disable=SC2012
+for i in $(ls | cut -d - -f 2-); do echo "$i"; done

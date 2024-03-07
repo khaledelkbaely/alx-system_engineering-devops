@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+i=1
+mod3=0
+mod5=0
+while [ $i -le 100 ]
+do
+  ((mod3 = i % 3))
+  ((mod5 = i % 5))
+  if [[ $mod3 -eq 0 ]] && [[ $mod5 -eq 0 ]]
+  then
+    echo "FizzBuzz"
+  elif [ $mod3 -eq 0 ]
+  then
+    echo "Fizz"
+  elif [ $mod5 -eq 0 ]
+  then
+    echo "Buzz"
+  else
+    echo "$i"
+  fi
+  ((i++))
+done
