@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# write I am alive! to the file /tmp/my_process
+# sleep for 2
+
+FileName=/tmp/my_process
+sudo touch $FileName
+
+while true
+do
+    sudo bash -c "echo \"I am alive!\" >> $FileName"
+    sleep 2
+done
