@@ -1,5 +1,5 @@
 # install a package
-package { 'Wekzeug':
+package { 'Werkzeug':
   ensure   => '2.1.1',
   provider => 'pip3',
   before   => Package['flask'],
