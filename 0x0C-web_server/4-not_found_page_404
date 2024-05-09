@@ -13,6 +13,8 @@ cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.b
 
 echo "Hello World!" > /var/www/html/index.html
 
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
 sudo sed -i 's/server_name _;/server_name _;\n\terror_page 404 \/404.html;\n\tlocation \/redirect_me {\n\t\treturn 301 https:\/\/google.com\/;\n\t}\n/' /etc/nginx/sites-available/default
 
 sudo service nginx restart
