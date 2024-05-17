@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+# install and configure haproxy
 
 function install() {
 	command -v "$1" &> /dev/null
@@ -29,8 +30,8 @@ frontend ld_front
 
 backend ld_back
 	balance roundrobin
-	server  479245-web-01 54.234.82.159 check
-	server  479245-web-02 54.234.82.159 check
+	server  479245-web-01 54.234.82.159:80 check
+	server  479245-web-02 100.26.167.203:80 check
 "
 
 echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
