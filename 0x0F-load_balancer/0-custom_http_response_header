@@ -1,23 +1,10 @@
 #!/usr/bin/env bash
 # Install nginx
 # shellcheck disable=SC2154
-HOST=$(hostname)
 sudo apt-get update -y && sudo apt-get install -y nginx
 
-sudo service nginx start
-
-sudo ufw allow 'Nginx HTTP'
-
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
-
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bak
-
-echo "Hello World!" > /var/www/html/index.html
-
+sed -i "47i\\\tadd_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+echo "Hello World!" | tee /var/www/html/index.html
 echo "Ceci n'est pas une page" > /var/www/html/404.html
 
-sudo sed -i "s/server_name _;/server_name _;\n\terror_page 404 \/404.html;\n\tlocation \/redirect_me {\n\tadd_header X-Served-By $HOST;\n\t\treturn 301 https:\/\/google.com\/;\n\t}\n/" /etc/nginx/sites-available/default
-sudo sed -i "1,60s/location \/ {/location \/ {\n\t\tadd_header X-Served-By \"$HOST\";/" /etc/nginx/sites-available/default
-
-sudo service nginx restart
+sudo service nginx start
