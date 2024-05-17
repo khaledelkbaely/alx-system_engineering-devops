@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Install nginx
 # shellcheck disable=SC2154
+HOST=$(hostname)
 sudo apt-get update -y && sudo apt-get install -y nginx
 
 sudo service nginx start
