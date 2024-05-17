@@ -1,0 +1,44 @@
+#!/usr/bin/bash
+
+function install() {
+	command -v "$1" &> /dev/null
+
+	#shellcheck disable=SC2181
+	if [ $? -ne 0 ]; then
+		sudo apt-get update -y -qq && \
+			sudo apt-get install -y "$1" -qq
+	else
+		echo "Already installed"
+	fi
+}
+
+install haproxy
+
+server_config=\
+"
+defaults
+	mode http
+	timeout client 15s
+	timeout connect 15s
+	timeout server 15s
+	timeout http-request 10s
+
+frontend ld_front
+	bind *:80
+	default_backend ld_back
+
+backend ld_back
+	balance roundrobin
+	server  479245-web-01 54.234.82.159 check
+	server  479245-web-02 54.234.82.159 check
+"
+
+echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
+
+echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
+
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	sudo service haproxy start
+else
+	sudo service haproxy restart
+fi
