@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# display information about subdomains
+# Usage: ./0-world_wide_web domain subdomain
+function get_info() {
+	sub_d="$2"
+	d_name="$1"
+	dig "$d_name" | grep -A1 'ANSWER SECTION:' | awk -v sub_d="$sub_d" 'NR > 1 {print "The subdomain " sub_d " is a " $4 " record and points to " $5};'
+}
+domain="$1"
+subdomain="$2"
+
+[ -z "$subdomain" ] && subdomain="www ld-01 web-01 web-02"
+
+for i in $subdomain; do
+	get_info "$i"."$domain" "$i"
+done
