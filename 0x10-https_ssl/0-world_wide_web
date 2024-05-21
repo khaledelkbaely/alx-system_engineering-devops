@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # display information about subdomains
 # Usage: ./0-world_wide_web domain subdomain
+[ -z "$1" ] && exit
 function get_info() {
 	sub_d="$2"
 	d_name="$1"
