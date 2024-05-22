@@ -1,0 +1,20 @@
+
+defaults
+	mode http
+	timeout client 15s
+	timeout connect 15s
+	timeout server 15s
+	timeout http-request 10s
+
+frontend ld_front
+	bind *:80
+	bind *:443 ssl crt /etc/haproxy/certs/full.pem
+	redirect scheme https code 301 if !{ ssl_fc }
+	http-request add-header X-Forwarded-Proto https if { ssl_fc }
+	default_backend ld_back
+
+backend ld_back
+	balance roundrobin
+	server  479245-web-01 54.234.82.159:80 check
+	server  479245-web-02 100.26.167.203:80 check
+
