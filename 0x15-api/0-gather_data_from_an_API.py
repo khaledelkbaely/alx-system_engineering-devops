@@ -1,12 +1,11 @@
 #!/usr/bin/python3
+""" Python script that using REST API returns some data """
 import requests
 import sys
 
 
 if __name__ == '__main__':
-    user_id = int(sys.argv[1])
-    if not isinstance(user_id, int):
-        sys.exit()
+    user_id = sys.argv[1]
     url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
 
     with requests.get(url) as res:
