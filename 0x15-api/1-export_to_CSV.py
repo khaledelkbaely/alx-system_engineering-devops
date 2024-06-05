@@ -10,7 +10,7 @@ if __name__ == '__main__':
     url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
 
     with requests.get(url) as res:
-        name = res.json().get('name')
+        name = res.json().get('username')
 
     with requests.get(url + '/todos') as res:
         todos = res.json()
